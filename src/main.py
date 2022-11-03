@@ -2,7 +2,7 @@ import pygame
 from pygame import QUIT, KEYDOWN
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION, K_ESCAPE
 
-from config import WINDOW_TITLE, WINDOW_SIZE, QUADTREE_SIZE, QUADTREE_POS
+from config import WINDOW_TITLE, WINDOW_SIZE, QT_SIDES
 from quadtree import Quadtree
 from aabb import AABB
 from quadtree_renderer import QuadtreeRenderer
@@ -10,8 +10,9 @@ from entity import Entity
 
 def main():
 	pygame.init()
+	clock = pygame.time.Clock()
 
-	qt = Quadtree(AABB(*QUADTREE_POS, *QUADTREE_SIZE))
+	qt = Quadtree(AABB.from_sides(*QT_SIDES))
 	qt_renderer = QuadtreeRenderer(qt, WINDOW_SIZE, WINDOW_TITLE)
 	entities = []
 
@@ -20,12 +21,16 @@ def main():
 
 		if is_quit_event(event):
 			break
-		elif event.type == MOUSEMOTION: #MOUSEBUTTONDOWN:
-			entities.append(Entity(event.pos, qt.boundary))
+		elif event.type == MOUSEBUTTONDOWN:
+			if qt.boundary.contains(event.pos):
+				entities.append(Entity(event.pos, qt.boundary))
+
+		dt = clock.tick() / 1000 # seconds
+
 		qt.clear()
 		for e in entities:
-			e.update()
-			qt.insert(e.pos)
+			e.update(dt)
+			qt.insert(e)
 		qt_renderer()
 
 def is_quit_event(event):

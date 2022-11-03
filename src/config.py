@@ -1,10 +1,11 @@
 WINDOW_TITLE = 'Quadtree'
 WINDOW_SIZE = (750,750)
-# WINDOW_CENTER = tuple(x//2 for x in WINDOW_SIZE)
 
 # Centered in window
-QUADTREE_SIZE = (700,700)
-QUADTREE_POS = tuple((WINDOW_SIZE[i]-QUADTREE_SIZE[i])//2 for i in range(2))
+BORDER_WIDTH = 25
+# left, right, top, bottom
+QT_SIDES = (BORDER_WIDTH, WINDOW_SIZE[0]-BORDER_WIDTH,
+			BORDER_WIDTH, WINDOW_SIZE[1]-BORDER_WIDTH)
 
 GREEN = (0,255,0)
 BLACK = (0,0,0)

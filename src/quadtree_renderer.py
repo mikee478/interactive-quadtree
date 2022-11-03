@@ -14,12 +14,13 @@ class QuadtreeRenderer:
 		self.__call__()
 
 	def __call__(self):
+		'Render qt'
 		self._clear_screen()
 		self._draw_quadtree(self._quadtree)
 		self._update_display()
 
 	def _draw_quadtree(self, quadtree):
-		# recursively draw qt and points
+		'Recursively draw qt and entities'
 		b = quadtree.boundary
 		r = pygame.Rect(b.left,b.top,b.w,b.h)
 		pygame.draw.rect(self._screen, WHITE, r, QuadtreeRenderer.BOUNDARY_THICKNESS)
@@ -30,8 +31,8 @@ class QuadtreeRenderer:
 			self._draw_quadtree(quadtree.bl)
 			self._draw_quadtree(quadtree.br)
 
-		for p in quadtree.points:
-			pygame.draw.circle(self._screen, GREEN, p, QuadtreeRenderer.POINT_RADIUS)
+		for e in quadtree.entities:
+			pygame.draw.circle(self._screen, GREEN, e.pos, QuadtreeRenderer.POINT_RADIUS)
 
 	def _clear_screen(self):
 		'Draw the screen black'
