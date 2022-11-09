@@ -67,18 +67,18 @@ class Quadtree:
 
 	def query_range(self, r):
 		in_range = []
-		self.query_range_helper(r, in_range)
+		self._query_range_helper(r, in_range)
 		return in_range
 
-	def query_range_helper(self, r, in_range):
+	def _query_range_helper(self, r, in_range):
 		if not self.boundary.intersects(r):
 			return
 
 		if self.divided:
-			self.tl.query_range_helper(r, in_range)
-			self.tr.query_range_helper(r, in_range)
-			self.bl.query_range_helper(r, in_range)
-			self.br.query_range_helper(r, in_range)
+			self.tl._query_range_helper(r, in_range)
+			self.tr._query_range_helper(r, in_range)
+			self.bl._query_range_helper(r, in_range)
+			self.br._query_range_helper(r, in_range)
 		else:
 			for e in self.entities:
 				if r.contains(e.pos):

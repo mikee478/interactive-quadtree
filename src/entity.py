@@ -2,13 +2,15 @@ import numpy as np
 
 class Entity:
 
+	SPEED_RANGE = (50,200)
+
 	def __init__(self, pos, boundary):
 		self.pos = np.array(pos, dtype='float')
 		self.boundary = boundary
 
 		# random velocity vector
 		self.v = np.random.uniform(-1,1,2)
-		speed = np.random.uniform(50,200) # px/sec
+		speed = np.random.uniform(*Entity.SPEED_RANGE) # px/sec
 		self.v *= speed / np.linalg.norm(self.v)
 
 	def update(self, dt):
