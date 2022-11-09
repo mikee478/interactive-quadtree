@@ -19,5 +19,13 @@ class AABB:
 
 	def contains(self, p):
 		'Returns true iff point is contained within the AABB'
-		return (self.left <= p[0] and p[0] <= self.right and
-			self.top <= p[1] and p[1] <= self.bottom)
+		return (self.left <= p[0] <= self.right and
+			self.top <= p[1] <= self.bottom)
+
+	def intersects(self, other):
+		'Returns true iff other intersects the AABB'
+		return not (
+			self.right < other.left or
+			other.right < self.left or
+			self.bottom < other.top or
+			other.bottom < self.top)

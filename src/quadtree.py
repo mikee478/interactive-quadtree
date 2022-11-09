@@ -64,3 +64,22 @@ class Quadtree:
 			self.bl.insert(e) or self.br.insert(e))
 
 		self.entities = []
+
+	def query_range(self, r):
+		in_range = []
+		self.query_range_helper(r, in_range)
+		return in_range
+
+	def query_range_helper(self, r, in_range):
+		if not self.boundary.intersects(r):
+			return
+
+		if self.divided:
+			self.tl.query_range_helper(r, in_range)
+			self.tr.query_range_helper(r, in_range)
+			self.bl.query_range_helper(r, in_range)
+			self.br.query_range_helper(r, in_range)
+		else:
+			for e in self.entities:
+				if r.contains(e.pos):
+					in_range.append(e)
