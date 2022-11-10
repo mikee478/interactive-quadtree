@@ -9,9 +9,10 @@ class Entity:
 		self.boundary = boundary
 
 		# random velocity vector
-		self.v = np.random.uniform(-1,1,2)
+		self.v = np.random.normal(0, 1, 2)
 		speed = np.random.uniform(*Entity.SPEED_RANGE) # px/sec
-		self.v *= speed / np.linalg.norm(self.v)
+		self.v /= np.linalg.norm(self.v)
+		self.v *= speed
 
 	def update(self, dt):
 		'Update the entity'
