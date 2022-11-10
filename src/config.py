@@ -1,4 +1,4 @@
-WINDOW_TITLE = 'Quadtree'
+WINDOW_TITLE = 'Interactive Quadtree'
 WINDOW_SIZE = (750,750)
 
 # Centered in window
